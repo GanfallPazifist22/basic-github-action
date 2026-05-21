@@ -1,9 +1,7 @@
-FROM python:3.9-slim
-
-WORKDIR /app
-
-RUN pip install fastapi uvicorn
-
+FROM node:18-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install --omit=dev
 COPY . .
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 10000
+CMD ["npm", "start"]
