@@ -8,3 +8,6 @@ jobs:
     steps:
       - name: Say Hello World
         run: echo "Hello, GitHub Actions is working!"
+
+      - name: Say Hello
+        run: echo "Hello from ${{ github.actor }}!"
