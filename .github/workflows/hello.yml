@@ -1,5 +1,10 @@
 name: Hello GitHub Actions
 
+# ขั้นตอนที่ 4: เพิ่ม Environment Variable ระดับ Workflow (Global Env)
+env:
+  APP_NAME: my-fastapi-app
+  NODE_ENV: production
+
 on: [push]
 
 jobs:
@@ -11,3 +16,16 @@ jobs:
 
       - name: Say Hello
         run: echo "Hello from ${{ github.actor }}!"
+
+      # ขั้นตอนที่ 2: ดึงค่าวาลูมาจาก Secret ผ่าน Environment Variable เฉพาะจุด
+      - name: Use Secret
+        run: |
+          echo "Secret value: $MY_MSG"
+          echo "Actor: ${{ github.actor }}"
+          echo "Current App: ${{ env.APP_NAME }} in ${{ env.NODE_ENV }}"
+        env:
+          MY_MSG: ${{ secrets.MY_SECRET_MESSAGE }}
+
+      # ขั้นตอนที่ 5: ตรวจสอบความแตกต่างโดยพยายามสั่ง echo ค่าวาลูตรงๆ
+      - name: Try to print secret directly
+        run: echo ${{ secrets.MY_SECRET_MESSAGE }}
